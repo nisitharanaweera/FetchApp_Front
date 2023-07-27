@@ -1,13 +1,13 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, Text, View, TouchableWithoutFeedback, Animated } from 'react-native';
 
 
 const FormSelectorBtn = ({backgroundColor, title, style}) => {
   return (
   <TouchableWithoutFeedback>
-        <View style={[styles.container,style, {backgroundColor}]}>
+        <Animated.View style={[styles.container,style, {backgroundColor}]}>
           <Text style={styles.title}>{title}</Text>
-        </View>
+        </Animated.View>
   </TouchableWithoutFeedback>
   
   );
