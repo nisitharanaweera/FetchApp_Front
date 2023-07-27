@@ -8,6 +8,8 @@ import SignupForm from './app/components/SignupForm';
 const {width} = Dimensions.get('window');
 export default function App() {
   const animation = useRef(new Animated.Value(0)).current;
+  const scrollBybtn = useRef()
+
   const rightHeaderOpacity = animation.interpolate({
     inputRange:[0,width],
     outputRange:[1,0]
@@ -30,7 +32,7 @@ export default function App() {
   })
 
   return (
-    <View style={{flex:1, paddingTop:120}}>
+    <View style={{flex:1, paddingTop:80}}>
       <View style ={{height:60}}>
       
         <FormHeader 
@@ -42,22 +44,27 @@ export default function App() {
          />
 
       </View>
-      <View style={{flexDirection:'row', paddingHorizontal: 20, marginBottom:20, paddingRight: 20}}>
+      <View style={{flexDirection:'row', paddingHorizontal: 20, marginBottom:20, paddingRight: 20, paddingTop:50}}>
         
         <FormSelectorBtn  
           style = {styles.borderLeft} 
           backgroundColor= {loginBtnColor} 
-          title = 'Sign In'/>
+          title = 'Sign In'
+          onPress={()=> scrollBybtn.current.scrollTo({x:0})}
+          />
           <View>
             <Text> </Text>
           </View>
         <FormSelectorBtn 
           style = {styles.borderRight} 
           backgroundColor= {signUpBtnColor} 
-          title = 'Sign Up'/>
+          title = 'Sign Up'
+          onPress={()=> scrollBybtn.current.scrollTo({x:width})}
+          />
 
       </View>
       <ScrollView 
+        ref = {scrollBybtn}
         horizontal 
         pagingEnabled 
         showsHorizontalScrollIndicator={false}

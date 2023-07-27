@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
     container:{
         width: Dimensions.get('window').width,
         paddingHorizontal:20,
+        paddingTop:20
         
     }
 })
