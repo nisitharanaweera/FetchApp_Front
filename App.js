@@ -1,13 +1,14 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
+import { ScrollView, Dimensions, StyleSheet, Text, TextComponent, TouchableWithoutFeedback, View } from 'react-native';
 import FormHeader from "./app/components/FormHeader";
 import FormSelectorBtn from './app/components/FormSelectorBtn';
+import LoginForm from './app/components/LoginForm';
+import SignupForm from './app/components/SignupForm';
  
 export default function App() {
   return (
-    <View style={{flex:1, paddingTop:120}}>
-      <View style ={{height:100}}>
+    <View style={{flex:1, paddingTop:80}}>
+      <View style ={{height:60}}>
       
         <FormHeader 
         leftHeading = 'Welcome '
@@ -15,12 +16,23 @@ export default function App() {
          />
 
       </View>
-      <View style={{flexDirection:'row', padding:20}}>
+      <View style={{flexDirection:'row', paddingHorizontal: 20}}>
         
-        <FormSelectorBtn backgroundColor= 'rgba(56, 56, 117, 1)' title = 'Sign In'/>
-        <FormSelectorBtn backgroundColor= 'rgba(27,27,51,0.4)' title = 'Sign Up'/>
+        <FormSelectorBtn  
+          style = {styles.borderLeft} 
+          backgroundColor= 'rgba(27,27,51,1)' 
+          title = 'Sign In'/>
+        <FormSelectorBtn 
+          style = {styles.borderRight} 
+          backgroundColor= 'rgba(27,27,51,0.4)' 
+          title = 'Sign Up'/>
 
       </View>
+      <ScrollView horizontal pagingEnabled showsHorizontalScrollIndicator={false}>
+        <LoginForm/>
+        <SignupForm/>
+        
+      </ScrollView>
       
     </View>
   );
@@ -32,5 +44,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  borderLeft:{
+    borderTopLeftRadius:10,
+    borderBottomLeftRadius: 10
+  },
+  borderRight: {
+    borderTopRightRadius: 10,
+    borderBottomRightRadius:10,
+
   },
 });
