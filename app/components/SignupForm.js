@@ -47,7 +47,7 @@ const SignupForm = () => {
         }}>
           {({values,errors, touched, isSubmitting, handleBlur, handleChange, handleSubmit})=>{
             const {name, email, password, confirmPassword}= values;
-            console.log(values);
+            // console.log(values);
             return(
             <>
             <FormInput value={name} error={touched.name && errors.name}

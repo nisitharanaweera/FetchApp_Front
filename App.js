@@ -1,14 +1,34 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { ScrollView, StyleSheet, View,Animated,Dimensions,Text } from 'react-native';
 import FormHeader from "./app/components/FormHeader";
 import FormSelectorBtn from './app/components/FormSelectorBtn';
 import LoginForm from './app/components/LoginForm';
 import SignupForm from './app/components/SignupForm';
+import axios from 'axios';
 
 const {width} = Dimensions.get('window');
 export default function App() {
   const animation = useRef(new Animated.Value(0)).current;
-  const scrollBybtn = useRef()
+  const scrollBybtn = useRef();
+
+  const fetchApi = async () => {
+    try {
+      console.log("trying API")
+      const res = await axios.get('http://192.168.100.120:8000/');
+      console.log(res.data);
+      
+    } catch (error) {
+        console.log(error.message);
+       
+    }
+    
+  }
+
+  useEffect(()=>{
+    fetchApi();
+  },[]);
+
+
 
   const rightHeaderOpacity = animation.interpolate({
     inputRange:[0,width],
