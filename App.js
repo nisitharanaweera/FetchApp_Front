@@ -13,7 +13,7 @@ export default function App() {
 
   const fetchApi = async () => {
     try {
-      console.log("trying API")
+      console.log("Connecting")
       const res = await axios.get('http://192.168.100.120:8000/');
       console.log(res.data);
       
