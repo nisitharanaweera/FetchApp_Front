@@ -1,4 +1,4 @@
-// import { StatusBar } from 'expo-status-bar';
+import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useRef } from 'react';
 import { ScrollView, StyleSheet, View,Animated,Dimensions,Text } from 'react-native';
 import FormHeader from "./app/components/FormHeader";
@@ -18,7 +18,7 @@ export default function App() {
       const res = await axios.get('http://192.168.100.120:8000/');
       console.log("connected");
       console.log(res.data);
-      
+  
       
     } catch (error) {
         console.log(error.message);
