@@ -7,6 +7,10 @@ import FormSubmitBtn from './FormSubmitBtn'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 
+import client from '../api/client';
+
+
+
 const SignupForm = () => {
   const userInfo ={
     name:'',
@@ -33,18 +37,25 @@ const SignupForm = () => {
   const submitForm=()=>{
 
   }
+
+const signUp = async (values, formikActions)=>{
+  const res = await client.post('/create-user',{
+    ...values,
+  });
+    console.log(res.data);
+    formikActions.resetForm();
+    formikActions.setSubmitting(false);
+
+
+};
+
+
+
   return (
     <FormContainer>
         <Formik initialValues={userInfo} 
         validationSchema={validationSchema} 
-        onSubmit={(values, formikActions)=>{
-          setTimeout(()=>{
-            console.log(values)
-            formikActions.resetForm();
-            formikActions.setSubmitting(false);
-          },3000);
-
-        }}>
+        onSubmit={signUp}>
           {({values,errors, touched, isSubmitting, handleBlur, handleChange, handleSubmit})=>{
             const {name, email, password, confirmPassword}= values;
             // console.log(values);
