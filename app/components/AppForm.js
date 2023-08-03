@@ -1,17 +1,17 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useRef } from 'react';
 import { ScrollView, StyleSheet, View,Animated,Dimensions,Text } from 'react-native';
-import FormHeader from "./app/components/FormHeader";
-import FormSelectorBtn from './app/components/FormSelectorBtn';
-import LoginForm from './app/components/LoginForm';
-import SignupForm from './app/components/SignupForm';
+import FormHeader from "./FormHeader";
+import FormSelectorBtn from './FormSelectorBtn';
+import LoginForm from './LoginForm';
+import SignupForm from './SignupForm';
 import axios from 'axios';
-import ImageUpload from './app/components/ImageUpload';
 
 
 
 const {width} = Dimensions.get('window');
-export default function App() {
+
+export default function AppForm({navigation}) {
   const animation = useRef(new Animated.Value(0)).current;
   const scrollBybtn = useRef();
 
@@ -98,9 +98,9 @@ export default function App() {
         onScroll={Animated.event([{nativeEvent:{contentOffset:{x:animation}}}],
           {useNativeDriver:false})}
       >
-        <LoginForm/>
+        <LoginForm navigation={navigation} />
         <ScrollView>
-             <SignupForm/>
+             <SignupForm navigation={navigation} />
         </ScrollView>
      
         

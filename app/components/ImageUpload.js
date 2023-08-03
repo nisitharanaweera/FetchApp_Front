@@ -2,12 +2,12 @@ import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native'
 import React, { useState } from 'react'
 import * as ImagePicker from 'expo-image-picker';
 import client from '../api/client';
+import { StackActions } from '@react-navigation/native';
 
-
-const ImageUpload = () => {
+const ImageUpload = (props ) => {
   const [profileImage, setProfileImage] = useState('');
   const [progress, setProgress] = useState(0);
-
+  const {token} = props.route.params
 
   const openImageLibrary = async() =>{
     const {status} = await ImagePicker.
@@ -39,11 +39,19 @@ const ImageUpload = () => {
           headers:{
             Accept:'application/json',
             'Content-Type': 'multipart/form-data',
-            Authorization: 'JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGNhZGY2Mzk0YmIwNjVlZmQ5ZjUzYmIiLCJpYXQiOjE2OTEwNjk2OTQsImV4cCI6MTY5MTE1NjA5NH0.5_pP5_VGU53czFkDQyOiWdQ0lz-C-KebFbOq1O2uGmI',
+            Authorization: `JWT ${token}`,
           },
           // onUploadProgress:({loaded,total}) => console.log(loaded/total)
         });
-        console.log(res.data);
+        if(res.data.success){
+          props.navigation.dispatch(
+            StackActions.replace('UserProfile',
+            // {
+            //   token: signInRes.data.token, 
+            // }
+            )
+      );
+        }
       } catch (error) {
         console.log(error.message);
         
