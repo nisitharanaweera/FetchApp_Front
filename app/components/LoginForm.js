@@ -1,34 +1,50 @@
 import { StyleSheet, Text} from 'react-native';
 import React, {useState } from 'react';
-import { isValidElement, isValidObjectField, updateError } from '../utils/methods';
+import {isValidEmail, isValidObjField, updateError } from '../utils/methods';
 import FormContainer from './FormContainer';
 import FormInput from './FormInput';
 import FormSubmitBtn from './FormSubmitBtn';
+import client from '../api/client';
 
 const LoginForm = () => {
 const [userInfo,setUserInfo] = useState({
     email:'',
     password:''
 })
-const {error, setError} = useState('');
+const [error, setError] = useState('');
+
 const {email, password} = userInfo;
 
 const handleOnChangeText = (value, fieldName)=>{
     setUserInfo({...userInfo,[fieldName] :value }) 
-}
-const isValidForm =()=>{
-    if(!isValidObjectField(userInfo)) return updateError('All fields Required',
-        setError)
-    if(!isValidEmail(email)) return updateError('Invalid Email',
-    setError)
-    if(!password.trim() || password.length<8) return updateError('Invalid Password',
-    setError)
-}
+};
+const isValidForm = () => {
+    if(!isValidObjField(userInfo)) 
+        return updateError('All fields Required', setError);
+    if(!isValidEmail(email)) 
+        return updateError('Invalid Email', setError);
+    if(!password.trim() || password.length<8) 
+        return updateError('Invalid Password', setError);
+
+    return true;    
+};
 
 
 
-const submitForm=()=>{
+const submitForm = async () => {
     if(isValidForm()){
+        try {
+            const res  = await 
+                client.post('/sign-in',{...userInfo});
+            
+            if (res.data.success){
+                setUserInfo({email:'',password:''});
+            }
+            console.log(res.data);
+        } catch (error) {
+            console.log(error.message);
+            
+        }
 
     }
 
