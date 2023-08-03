@@ -5,8 +5,10 @@ import FormContainer from './FormContainer';
 import FormInput from './FormInput';
 import FormSubmitBtn from './FormSubmitBtn';
 import client from '../api/client';
+import { useLogin } from '../context/LoginProvider';
 
 const LoginForm = () => {
+    const {setIsLoggedIn, setProfile} = useLogin()
 const [userInfo,setUserInfo] = useState({
     email:'',
     password:''
@@ -39,6 +41,8 @@ const submitForm = async () => {
             
             if (res.data.success){
                 setUserInfo({email:'',password:''});
+                setProfile(res.data.user);
+                setIsLoggedIn(true);
             }
             console.log(res.data);
         } catch (error) {

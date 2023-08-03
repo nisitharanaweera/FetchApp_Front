@@ -1,27 +1,22 @@
 import * as React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import AppForm from './app/components/AppForm';
-import ImageUpload from './app/components/ImageUpload';
-import UserProfile from './app/components/UserProfile';
-const Stack = createStackNavigator();
+import { NavigationContainer } from '@react-navigation/native';
 
-const StackNavigator =()=>{
-  return(
-    <Stack.Navigator screenOptions={{headerShown:false}}>
-      <Stack.Screen component={AppForm} name='Appform'/>
-      <Stack.Screen component={ImageUpload} name='ImageUpload'/>
-      <Stack.Screen component={UserProfile} name='UserProfile'/>
+import MainNavigator from './app/MainNavigator';
+import LoginProvider from './app/context/LoginProvider';
 
-    </Stack.Navigator>
+import { AppRegistry } from 'react-native';
+// import App from './App'; 
+import { name as appName } from './app.json';
 
-  );
-};
+AppRegistry.registerComponent(appName, () => App);
+
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <StackNavigator/>
-    </NavigationContainer>
+    <LoginProvider>
+      <NavigationContainer>
+        <MainNavigator />
+      </NavigationContainer>
+    </LoginProvider>
   );
 }
