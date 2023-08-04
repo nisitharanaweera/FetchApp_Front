@@ -7,6 +7,7 @@ import client from '../api/client'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 import { StackActions } from '@react-navigation/native'
+import { useLogin } from '../context/LoginProvider'
 
 
 
@@ -20,11 +21,13 @@ const SignupForm = ({navigation}) => {
     confirmPassword:'',
   };
 
+  const {setLoginPending} = useLogin();
+
   const validationSchema = Yup.object({
-    name:Yup.string().trim().min(3, "Invalid Name").required("Name cannot be empty"),
-    email:Yup.string().email("Invalid Email").required("Email cannot be empty"),
-    password:Yup.string().trim().min(8,' Password should have at least 8 characters'),
-    confirmPassword:Yup.string().equals([Yup.ref('password'), null],"The Passwords do not match")
+    name:Yup.string().trim().min(3, "Invalid Name").required("Required"),
+    email:Yup.string().email("Invalid Email").required("Required"),
+    password:Yup.string().trim().min(8,'8+ characters required.'),
+    confirmPassword:Yup.string().equals([Yup.ref('password'), null],"Try again, doesn\'t match")
 
 
   });
@@ -40,6 +43,7 @@ const SignupForm = ({navigation}) => {
   }
 
 const signUp = async (values, formikActions)=>{
+  setLoginPending(true);
   const res = await client.post('/create-user',{
     ...values,
   });
@@ -61,7 +65,7 @@ const signUp = async (values, formikActions)=>{
     console.log(res.data);
     formikActions.resetForm();
     formikActions.setSubmitting(false);
-
+    setLoginPending(false);
 
 };
 

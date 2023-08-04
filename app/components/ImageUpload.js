@@ -44,13 +44,7 @@ const ImageUpload = (props ) => {
           // onUploadProgress:({loaded,total}) => console.log(loaded/total)
         });
         if(res.data.success){
-          props.navigation.dispatch(
-            StackActions.replace('UserProfile',
-            // {
-            //   token: signInRes.data.token, 
-            // }
-            )
-      );
+          props.navigation.dispatch(StackActions.replace('Appform'));
         }
       } catch (error) {
         console.log(error.message);

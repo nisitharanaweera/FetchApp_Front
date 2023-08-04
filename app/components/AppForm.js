@@ -6,6 +6,8 @@ import FormSelectorBtn from './FormSelectorBtn';
 import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
 import axios from 'axios';
+import AppLoader from './AppLoader';
+import { useLogin } from '../context/LoginProvider';
 
 
 
@@ -14,6 +16,7 @@ const {width} = Dimensions.get('window');
 export default function AppForm({navigation}) {
   const animation = useRef(new Animated.Value(0)).current;
   const scrollBybtn = useRef();
+  const {loginPending} = useLogin()
 
   const fetchApi = async () => {
     try {
@@ -58,6 +61,7 @@ export default function AppForm({navigation}) {
   })
 
   return (
+    <>
     <View style={{flex:1, paddingTop:80}}>
       <View style ={{height:60}}>
       
@@ -107,6 +111,9 @@ export default function AppForm({navigation}) {
       </ScrollView>
       
     </View>
+    {loginPending ? <AppLoader/> : null}
+
+    </>
   );
   
 }
